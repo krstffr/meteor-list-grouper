@@ -1,8 +1,6 @@
 {
   "packages": {
-    "list-grouper": {
-      "path": "../../../meteor-list-grouper"
-    },
+    "list-grouper": {},
     "spreadsheet-to-mongodb": {}
   }
 }
