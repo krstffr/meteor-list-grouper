@@ -1,0 +1,86 @@
+/* CSS declarations go here */
+body {
+	background: #cbefe0;
+	font-family: sans-serif;
+	margin: 0 auto;
+	line-height: 1.4;
+}
+hr {
+	border: none;
+	border-top: 1px dashed #FFF;
+	margin: 3em;
+}
+code {
+	background: #FFF;
+	padding: 0.4em 0.7em;
+	margin: 0 0.4em;
+	border-radius: 3px;
+	border: 1px solid #CECECE;
+	font-weight: bold;
+}
+h1 {
+	margin-top: 1.2em;
+	font-size: 2.5em;
+}
+p {
+	max-width: 66%;
+	margin: 0 auto 1em;
+}
+a {
+	color: #000;
+	font-weight: bold;
+}
+a:hover {
+	color: #aaa;
+}
+.container {
+	width: 900px;
+	margin: 0 auto;
+	text-align: center;
+}
+.listCol {
+	float: left;
+}
+.listItem__header {
+	font-weight: bold;
+}
+.listItem__header__sum {
+	float: right;
+	color: #aaa;
+}
+.list {
+	padding: 0 1em 2em 0;
+	margin: 0;
+	width: 425px;
+	text-align: left;
+}
+.listItem {
+	list-style: none;
+	padding: 0.3em 0.5em;
+	background: #fff;
+	border-radius: 3px;
+	margin-bottom: 3px;
+}
+.listItem:hover {
+	background: #eee;
+}
+.listItem--header {
+	background: none;
+	margin-top: 0.5em;
+	color: #444;
+}
+.listItem--header:hover {
+	background: none;
+}
+.listItem__name {
+	display: inline-block;
+	width: 180px;
+}
+.listItem__stats {
+	float: right;
+	text-align: right;
+}
+.listItem span {
+	text-align: right;
+	font-size: 0.8em;
+}

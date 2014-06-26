@@ -1,0 +1,90 @@
+<head>
+  <title>list-grouper-example-1</title>
+</head>
+
+<body>
+
+	<div class="container">
+
+		<h1>
+			<a href="https://github.com/krstffr/meteor-list-grouper">meteor-list-grouper</a> 
+			demo
+		</h1>
+
+		<p>
+			Sometimes you just need a list. Sometimes you want to group stuff in that list, and sum up values from the list etc. That's what meteor-list-grouper is for! Try changing the group by parameter below and see what happens.
+		</p>
+		<p>
+			Installation: <code>mrt add list-grouper</code>
+		</p>
+		<p>
+			Links: <a href="https://github.com/krstffr/meteor-list-grouper" target="_blank">github repo with documenation</a>, 
+			<a href="http://portfolio.new-doc.com/portfolio/"> my porfolio</a>.
+		</p>
+
+		<hr>
+
+		{{> changeGrouping }}
+
+	  {{> insertData}}
+		
+		{{> lists }}
+
+	</div>
+  
+</body>
+
+<template name="changeGrouping">
+	<p>
+		Group/order by:
+		<a href="#">participations</a>
+		<a href="#">played</a>
+		<a href="#">wins</a>
+		<a href="#">draws</a>
+		<a href="#">losses</a>
+		<a href="#">goalDifference</a>
+	</p>
+</template>
+
+<template name="insertData">
+	{{! this is for insertingData }}
+	{{#if noRecords }}
+		<h2>Loading...</h2>
+  	{{{ spreadsheetToMongoDBGetForm 'listItems' }}}
+  {{/if}}
+</template>
+
+<template name="lists">
+	<div class="lists">
+		<div class="listCol">
+			<h2>Ordinary list</h2>
+	  	<ul class="list">
+	  	{{#each listItems }}
+				{{> listItem }}
+	  	{{/each}}
+	  	</ul>
+	  </div>
+	  <div class="listCol">
+	  	<h2>Grouped list</h2>
+	  	<ul class="list list--with-headlines">
+	  	{{#each listItems }}
+				{{> listItem }}
+	  	{{/each}}
+	  	</ul>
+	  	{{ groupList }}
+	  </div>
+  </div>
+</template>
+
+<template name="listItem">
+	<li class="listItem" data-list-grouper-id="{{ _id }}">
+		<strong class="listItem__name">{{ team }}</strong>
+		<div class="listItem__stats">
+			<span title="Participations in World Cup">P: {{ participations }}</span>
+			<span title="Games played">Pld: {{  played }}</span>
+			<span title="Wins">W: {{ wins }}</span>
+			<span title="Draws">D: {{ draws}}</span>
+			<span title="Losses">L: {{ losses}}</span>
+		</div>
+	</li>
+</template>
