@@ -8,6 +8,6 @@ if (Meteor.isClient) {
 
 if (Meteor.isServer) {
   Meteor.publish('listItems', function () {
-    return ListItems.find({}, { limit: 50 });
+    return ListItems.find({}, { limit: 100 });
   });
 }

@@ -1,6 +1,8 @@
 meteor-list-grouper
 ===================
 
+Demo: http://list-grouper.meteor.com/
+
 **There is a currently a bug in this package which makes it dumb to use it. So don't**
 
 Sometimes you have lists of stuff in your meteor.js applications. Let's say invoices. Let's say you want to group these invoices by month, and add a little headline where a new month starts in the list. And then maybe you want to group by week number. Or by invoice amount. This is (?) not as easy as it might seem in meteor. But this package does it for you. **OR SOON IT WILL**
