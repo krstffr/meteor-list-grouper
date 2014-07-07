@@ -37,12 +37,8 @@
 <template name="changeGrouping">
 	<p>
 		Group/order by:
-		<a href="#">participations</a>
-		<a href="#">played</a>
-		<a href="#">wins</a>
-		<a href="#">draws</a>
-		<a href="#">losses</a>
-		<a href="#">goalDifference</a>
+		<a href="#">Wins</a>
+		<a href="#">Losses</a>
 	</p>
 </template>
 
@@ -67,11 +63,20 @@
 	  <div class="listCol">
 	  	<h2>Grouped list</h2>
 	  	<ul class="list list--with-headlines">
-	  	{{#each listItems }}
-				{{> listItem }}
+	  	{{#each listItemsGrouped }}
+	  		<li class="listItem listItem--header">
+	  			{{ groupHeadline }}
+	  			{{#each sums}}
+
+	  				<span class="listItem__header__sum">{{ sum }}</span>
+
+	  			{{/each}}
+	  		</li>
+	  		{{#each groupItems }}
+					{{> listItem }}
+				{{/each}}	
 	  	{{/each}}
 	  	</ul>
-	  	{{ groupList }}
 	  </div>
   </div>
 </template>
@@ -83,8 +88,8 @@
 			<span title="Participations in World Cup">P: {{ participations }}</span>
 			<span title="Games played">Pld: {{  played }}</span>
 			<span title="Wins">W: {{ wins }}</span>
-			<span title="Draws">D: {{ draws}}</span>
-			<span title="Losses">L: {{ losses}}</span>
+			<span title="Draws">D: {{ draws }}</span>
+			<span title="Losses">L: {{ losses }}</span>
 		</div>
 	</li>
 </template>
