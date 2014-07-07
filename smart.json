@@ -3,7 +3,7 @@
   "description": "Group the content in your lists.",
   "homepage": "https://github.com/krstffr/meteor-list-grouper",
   "author": "Kristoffer Klintberg <krstffr@gmail.com>",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "git": "https://github.com/krstffr/meteor-list-grouper.git",
   "packages": {}
 }
