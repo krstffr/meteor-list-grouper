@@ -1,7 +1,7 @@
 Package.describe({
   summary: "Group the content in your lists.",
   name: "krstffr:list-grouper",
-  version: "2.0.1",
+  version: "2.0.2",
   git: "https://github.com/krstffr/meteor-list-grouper.git",
 });
 
