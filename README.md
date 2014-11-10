@@ -3,6 +3,8 @@ meteor-list-grouper
 
 Live version of the example app: http://list-grouper.meteor.com/
 
+Installation: ```mrt add krstffr:list-grouper```
+
 ## Usage
 
 This package gives you access to the ListGrouper object, which has a method called ```.getGroup( options )``` which returns a grouped version of your collection. Like this:
