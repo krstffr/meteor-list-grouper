@@ -3,7 +3,7 @@ meteor-list-grouper
 
 Live version of the example app: http://list-grouper.meteor.com/
 
-Installation: ```mrt add krstffr:list-grouper```
+Installation: ```meteor add krstffr:list-grouper```
 
 ## Usage
 
