@@ -1,9 +1,0 @@
-{
-  "name": "list-grouper",
-  "description": "Group the content in your lists.",
-  "homepage": "https://github.com/krstffr/meteor-list-grouper",
-  "author": "Kristoffer Klintberg <krstffr@gmail.com>",
-  "version": "0.1.3",
-  "git": "https://github.com/krstffr/meteor-list-grouper.git",
-  "packages": {}
-}

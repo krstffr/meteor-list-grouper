@@ -1,0 +1,106 @@
+<head>
+	<title>list-grouper-example-1</title>
+</head>
+
+<body>
+
+	<div class="container">
+
+		<div class="txt-top">
+			<h1>
+				<a href="https://github.com/krstffr/meteor-list-grouper">krstffr:list-grouper</a> 
+				demo
+			</h1>
+
+			<p>
+				Sometimes you just need a list. Sometimes you want to group stuff in that list, and sum up values from the list etc. That's what krstffr:list-grouper is for! Try changing the group by parameter below by clicking the "Next one!" link and see what happens.
+			</p>
+			<p>
+				Installation: <code>mrt add krstffr:list-grouper</code>
+			</p>
+			<p>
+				Links: 
+				<a target="_blank" href="https://github.com/krstffr/meteor-list-grouper">github repo with documenation</a>
+				<a target="_blank" href="https://docs.google.com/spreadsheet/ccc?key=0AonYZs4MzlZbdE9NMnFSRW1QVWJ2NzZ3YXVtckVFWWc&amp;hl=en#gid=1">The World cup data comes from this spreadsheet.</a>
+			</p>
+
+			<hr>
+
+			{{> changeGrouping }}
+
+		</div>
+
+		{{> insertData}}
+		
+		{{> lists }}
+
+	</div>
+
+</body>
+
+<template name="changeGrouping">
+	<p>
+		Group/order by:
+		<a class="toggle-group-by-method" href="#">Next one!</a>
+	</p>
+</template>
+
+<template name="insertData">
+	{{! this is for insertingData }}
+	{{#if noRecords }}
+	<h2>Loading...</h2>
+	{{> spreadsheetToMongodb__form 'worldCupPlayers' }}
+	{{/if}}
+</template>
+
+<template name="lists">
+	<div class="lists">
+		<div class="listCol">
+			<h2>Ordinary list</h2>
+			<ul class="list">
+				{{#each listItems }}
+					{{> listItem }}
+				{{/each}}
+			</ul>
+		</div>
+		<div class="listCol">
+			<h2>Grouped list</h2>
+			<ul class="list list--with-headlines">
+
+				{{#each listItemsGrouped }}
+
+					<li class="listItem listItem--header">
+
+						<strong>{{ groupName }}:</strong> {{ groupKey }}
+
+						{{#each sums}}
+
+							<span class="listItem__header__sum">{{ sumName }}: {{ sum }}</span>
+
+						{{/each}}
+					</li>
+
+					{{#each groupItems }}
+
+						{{> listItem }}
+
+					{{/each}}	
+
+				{{/each}}
+
+			</ul>
+		</div>
+	</div>
+</template>
+
+<template name="listItem">
+	<li class="listItem" data-list-grouper-id="{{ _id }}">
+		<strong>{{ surname }}</strong>, {{ position }}. {{ team }}
+		<div class="listItem__stats">
+			Playtime: {{ playtime }}
+			Shots: {{ shots }}
+			Passes: {{ passes }}
+			Tackles: {{ tackles }}
+		</div>
+	</li>
+</template>
