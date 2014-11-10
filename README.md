@@ -1,43 +1,69 @@
 meteor-list-grouper
 ===================
 
-Demo: http://list-grouper.meteor.com/
-
-**Note: v. 0.1.0 is totally redone. Won't be compatible with versions below 0.1.0**
+Live version of the example app: http://list-grouper.meteor.com/
 
 ## Usage
 
-1. Setup the grouping you want. Before calling the loop, setup like this:
+This package gives you access to the ListGrouper object, which has a method called ```.getGroup( options )``` which returns a grouped version of your collection. Like this:
 ```javascript
-
-listGrouper.addGroupMethod({
-	groupName: 'invoices',
-	groupMethod: function ( invoice ) {
-		return invoice.client.name;
-	},
-	sumMethods: [
-	function ( groupOfInvoices ) {
-		return _.reduce(groupOfInvoices, function(memo, invoice) { return memo + invoice.amount; }, 0);
-	}
-	],
-	groupMethodName: 'Paid or not',
-	cursorSorter: { isPaid: 1, amount: 1 }
-});
-
-```
-Now you're ready to group your invoices by the client name, and also get the total sum of the invoices in each group so you easily get an overview of your best paying clients.
-2. In your HTML file, instead of using a regular `{{ #each invoices }}{{/each}}` loop for your list, use an outer (invoice groups) and an inner (invoices), like this: `{{ #each invoicesGrouped }}{{ #each groupItems }}{{/each}}{{/each}}`.
-3. And the helper for this new loop would look like this: 
-```javascript
-Template.someTemplate.helpers({
-	invoiceGroup: function () {
-		// Pass the collection you want for the query, the mongoDB selector, 
-		// and the name of the group (which is set in the listGrouper.addGroupMethod
-		// method with groupName: 'invoices').
-		// The groups will be returned.
-		return listGrouper.groupCursor( Invoices, {}, 'invoices' );
+var groupedList = ListGrouper.getGroup({
+	// Pass a MongoDB cursor or just a native Array to the collection field
+	collection: WorldCupPlayers.find({}, { limit: 100 }),
+	// How would you like your data to be grouped?
+	// The groupBy object contains a name and a groupMethod.
+	groupBy: {
+		// Give the grouping a name
+		name: 'Number of passes',
+		// The method used for grouping the data
+		groupMethod: function ( player ) {
+			return Math.floor( player.passes / 10 ) * 10;
+		}
 	}
 });
 ```
-4. Do whatever you want in the HTML. The name of the group (the value returned of the groupMethod()) will be reachable in the `{{ groupHeadline }}` handlebars helper, and the actual group items will be in a `groupItems` helper (see above in the inner loop).
-5. You can also sum stuff in the group. Just add methods to the sumMethods array and those will be return in a `sums` helper. So you can iterate over them using `{{ #each groups }}{{#each sums}}{{/each}}{{/each}}`.
+
+Now we have an array called groupedList which will look something like this:
+
+```javascript
+[{
+	groupItems: [ Array containing the items in the group ],
+	groupKey: 0,
+	groupName: "Number of passes"
+}, {
+	groupItems: [ Array containing the items in the group ],
+	groupKey: 10,
+	groupName: "Number of passes"
+}, {
+	groupItems: [ Array containing the items in the group ],
+	groupKey: 20,
+	groupName: "Number of passes"
+}]
+```
+
+This array we can of course use in our HTML templates. See the app source inside the examples folder if you want an example on how to this, or check out the [http://list-grouper.meteor.com/](live version) of the example app.
+
+We can also filter the results and also add sum methods (which sums up whatever data you want from the items inside the group). **To filter, do this:**
+```javascript
+filter: function ( player ) {
+  // Only use players who have played at least 90 minutes, all other players will not be in the groups.
+  return player.playtime > 90;
+}
+```
+**To add sum methods (any number of them!), do this:**
+```javascript
+sums: [{
+  // Show how many shots were made by the players in each group
+  name: 'Shots',
+  sumMethod: function ( memo, player ) {
+    return memo + player.shots;
+  }
+},
+{
+	// Show how many tackles were made by the players in each group
+  name: 'Tackles',
+  sumMethod: function ( memo, player ) {
+    return memo + player.tackles;
+  }
+}]
+```
